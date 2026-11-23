@@ -3,14 +3,16 @@
 @section('title', 'Start New Thread')
 @section('main_class', 'bg-white')
 
+@section('above_header')
+    @include('forum.partials.moderation_queue')
+@endsection
+
 @section('content')
     @php
         $threadRequiresApproval = app(\Filagora\Forums\Services\ApprovalRules::class)->threadRequiresApproval($forum, auth()->user());
         $decodedForumName = \App\Support\LegacyTextDecoder::decode($forum->name);
     @endphp
     <div class="mx-auto max-w-[1320px] px-6 py-8 md:px-10">
-        @include('forum.partials.header_nav')
-        @include('forum.partials.moderation_queue')
 
         @include('forum.partials.breadcrumb', ['forum' => $forum, 'forumUrl' => route('forums.show', $forum), 'current' => 'New Thread'])
 
